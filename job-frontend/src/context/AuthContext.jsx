@@ -33,6 +33,9 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
     } catch (error) {
       console.error('Token verification failed:', error);
+      if (error.response) {
+        console.error('Backend response:', error.response.data);
+      }
       logout();
     } finally {
       setLoading(false);
@@ -43,16 +46,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post('/user/login', { email, password });
       const { user, token } = response.data;
-      
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));
       setUser(user);
-      
       return { success: true, user };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Login failed' 
+      console.error('Login error:', error);
+      if (error.response) {
+        console.error('Backend response:', error.response.data);
+      }
+      return {
+        success: false,
+        error: error.response?.data?.message || 'Login failed'
       };
     }
   };

@@ -8,7 +8,10 @@ const addNewUser = async (req, res) => {
         const result = await userService.addNewUser(user);
         return res.status(200).send(result);
     } catch (error) {
-        return res.status(error instanceof InputValidationException ? 400 : 500).send({message : error.message});
+        return res.status(error instanceof InputValidationException ? 400 : 500).send({
+            message: error.message,
+            details: error.stack
+        });
     }
 };
 
@@ -18,7 +21,10 @@ const loginUser = async (req, res) => {
         const result = await userService.loginUser(email, password);
         return res.status(200).send(result);
     } catch (error) {
-        return res.status(error instanceof InputValidationException ? 400 : 500).send({message : error.message});
+        return res.status(error instanceof InputValidationException ? 400 : 500).send({
+            message: error.message,
+            details: error.stack
+        });
     }
 };
 

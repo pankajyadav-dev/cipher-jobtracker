@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET || 'jobtrackerkey';
 
 const generateToken = ({_id , type}) => {
     const token = jwt.sign(
