@@ -1,4 +1,4 @@
-const { model, Schema} = require('mongoose');
+const { model, Schema } = require('mongoose');
 
 const JobSchema = new Schema({
     title: {
@@ -51,8 +51,8 @@ const JobSchema = new Schema({
         },
         currency: {
             type: String,
-            enum: ['USD', 'EUR', 'GBP', 'INR', 'CAD', 'AUD', 'RS'],
-            default: 'USD'
+            enum: ['INR', 'RS'],
+            default: 'INR'
         }
     },
     description: {
@@ -125,77 +125,77 @@ const JobSchema = new Schema({
         type: Boolean,
         default: false
     }
-}, { 
-    timestamps: true 
+}, {
+    timestamps: true
 });
 JobSchema.index({ title: 'text', company: 'text', description: 'text' });
 JobSchema.index({ location: 1, jobType: 1, workMode: 1 });
 JobSchema.index({ postedBy: 1 });
 JobSchema.index({ status: 1 });
 
-JobSchema.virtual('applicationCount').get(function() {
+JobSchema.virtual('applicationCount').get(function () {
     return this.applications.length;
 });
 
-JobSchema.methods.applyForJob = async function(userId, coverLetter, resume) {
-    const existingApplication = this.applications.find(app => 
+JobSchema.methods.applyForJob = async function (userId, coverLetter, resume) {
+    const existingApplication = this.applications.find(app =>
         app.applicant.toString() === userId.toString()
     );
-    
+
     if (existingApplication) {
         throw new Error('You have already applied for this job');
     }
-    
+
     this.applications.push({
         applicant: userId,
         coverLetter,
         resume
     });
-    
+
     await this.save();
     return this;
 };
 
-JobSchema.methods.updateApplicationStatus = async function(applicationId, status) {
+JobSchema.methods.updateApplicationStatus = async function (applicationId, status) {
     const application = this.applications.id(applicationId);
     if (!application) {
         throw new Error('Application not found');
     }
-    
+
     application.status = status;
     await this.save();
     return this;
 };
 
-JobSchema.statics.findJobsWithFilters = async function(filters, skip = 0, limit = 10) {
+JobSchema.statics.findJobsWithFilters = async function (filters, skip = 0, limit = 10) {
     const query = { status: 'Published' };
-    
+
     if (filters.search) {
         query.$text = { $search: filters.search };
     }
-    
+
     if (filters.location) {
         query.location = new RegExp(filters.location, 'i');
     }
-    
+
     if (filters.jobType) {
         query.jobType = filters.jobType;
     }
-    
+
     if (filters.workMode) {
         query.workMode = filters.workMode;
     }
-    
+
     if (filters.company) {
         query.company = new RegExp(filters.company, 'i');
     }
-    
+
     if (filters.minSalary || filters.maxSalary) {
         query['salary.min'] = {};
         if (filters.minSalary) query['salary.min'].$gte = filters.minSalary;
         if (filters.maxSalary) query['salary.max'].$lte = filters.maxSalary;
     }
-    
+
     return await this.find(query)
         .populate('postedBy', 'firstname lastname email')
         .sort({ featured: -1, createdAt: -1 })

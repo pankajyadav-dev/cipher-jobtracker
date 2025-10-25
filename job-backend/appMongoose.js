@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { connect } = require('mongoose');
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/job-tracking";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://virat:virat123@localhost:27017/jobtracker?authSource=admin";
 
 const connectToDatabase = async () => {
   try {
@@ -18,5 +18,4 @@ const connectToDatabase = async () => {
 
 connectToDatabase();
 
-module.exports = { connectToDatabase };
-
+module.exports = { connectToDatabase }

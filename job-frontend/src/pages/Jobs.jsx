@@ -5,8 +5,9 @@ import { FaSearch, FaFilter } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import JobCard from '../components/JobCard';
 import JobCardSkeleton from '../components/JobCardSkeleton';
-
+import { useAuth } from "../context/AuthContext";
 const Jobs = () => {
+  const { user } = useAuth;
   const [jobs, setJobs] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({
@@ -89,7 +90,7 @@ const Jobs = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-dark-primary mb-8">Find Jobs</h1>
-      
+
       <div className="bg-white dark:bg-dark-secondary rounded-lg shadow-md p-6 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
@@ -273,21 +274,20 @@ const Jobs = () => {
                 >
                   Previous
                 </button>
-                
+
                 {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(page => (
                   <button
                     key={page}
                     onClick={() => handlePageChange(page)}
-                    className={`px-3 py-2 border rounded-md ${
-                      page === pagination.currentPage
-                        ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600'
-                        : 'border-gray-300 dark:border-dark-primary text-gray-700 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-dark-accent'
-                    }`}
+                    className={`px-3 py-2 border rounded-md ${page === pagination.currentPage
+                      ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600'
+                      : 'border-gray-300 dark:border-dark-primary text-gray-700 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-dark-accent'
+                      }`}
                   >
                     {page}
                   </button>
                 ))}
-                
+
                 <button
                   onClick={() => handlePageChange(pagination.currentPage + 1)}
                   disabled={!pagination.hasNext}

@@ -92,17 +92,17 @@ const Profile = () => {
       const response = await fetch(fileData.file);
       const blob = await response.blob();
       const file = new File([blob], fileData.fileName, { type: fileData.fileType });
-      
+
       const result = await profileService.uploadResume(file);
-      
+
       setResumeFile({
         name: fileData.fileName,
         url: `/api/profile/resume/download`,
         size: fileData.fileSize
       });
-      
+
       setProfile(prev => ({ ...prev, resume: result.user.resume }));
-      
+
       toast.success('Resume uploaded successfully');
     } catch (error) {
       console.error('Error uploading resume:', error);
@@ -320,54 +320,6 @@ const Profile = () => {
                   <p className="text-gray-700 dark:text-gray-300">{profile.bio}</p>
                 </div>
               )}
-
-              <div className="border-t pt-6 dark:border-gray-600">
-                <h3 className="text-lg font-medium text-gray-900 mb-4 dark:text-gray-300">Resume</h3>
-                {resumeFile ? (
-                  <div className="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <FaFilePdf className="text-red-500 text-xl" />
-                        <div>
-                          <p className="font-medium text-gray-900 dark:text-gray-300">{resumeFile.name}</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-300">
-                            {resumeFile.size ? `${Math.round(resumeFile.size / 1024)}KB` : ''}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2 dark:text-gray-300">
-                        <button
-                          onClick={handleResumeDownload}
-                          className="p-2 text-blue-600 hover:text-blue-800 transition-colors dark:text-blue-400 dark:hover:text-blue-500"
-                          title="Download Resume"
-                        >
-                          <FaDownload />
-                        </button>
-                        <button
-                          onClick={handleResumeDelete}
-                          className="p-2 text-red-600 hover:text-red-800 transition-colors dark:text-red-400 dark:hover:text-red-500"
-                          title="Delete Resume"
-                        >
-                          <FaTrash />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center py-8 dark:bg-gray-700">
-                    <FaUpload className="mx-auto text-gray-400 text-3xl mb-4 dark:text-gray-300" />
-                    <p className="text-gray-500 mb-4 dark:text-gray-300">No resume uploaded yet</p>
-                    <FileUpload
-                      onFileUpload={handleResumeUpload}
-                      acceptedFileTypes=".pdf,.doc,.docx"
-                      maxSize={5 * 1024 * 1024}
-                      placeholder="Upload your resume"
-                      currentFile={null}
-                      disabled={resumeUploading}
-                    />
-                  </div>
-                )}
-              </div>
 
               <div className="border-t pt-4">
                 <p className="text-sm text-gray-600 dark:text-gray-400">

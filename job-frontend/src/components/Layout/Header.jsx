@@ -29,17 +29,16 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
 
           <Link to="/" className="flex items-center">
-            <FiBriefcase className="h-8 w-8 text-blue-600 dark:text-blue-400 mr-2" />
-            <span className="text-xl font-bold text-gray-800 dark:text-dark-primary">JobTracker</span>
+            <span className="text-xl font-bold text-gray-800 dark:text-dark-primary">LinkUp</span>
           </Link>
 
           <nav className="hidden md:flex space-x-8">
-            <Link to="/jobs" className="text-gray-700 dark:text-dark-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              Find Jobs
-            </Link>
+
             {isAuthenticated && (
               <>
-
+                <Link to="/jobs" className="text-gray-700 dark:text-dark-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  Find Jobs
+                </Link>
                 {user?.type === 'ADMIN' && (
                   <>
                     <Link to="/my-jobs" className="text-gray-700 dark:text-dark-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
@@ -71,7 +70,7 @@ const Header = () => {
                   <FiUser className="h-5 w-5" />
                   <span>{user?.firstname} {user?.lastname}</span>
                 </button>
-                
+
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-accent rounded-md shadow-lg py-1 z-50">
                     <Link
@@ -117,15 +116,15 @@ const Header = () => {
           </div>
 
 
-          <div className="md:hidden flex items-center space-x-2">
-            <ThemeToggle className="md:hidden" />
-            <button
+          {/* <div className="md:hidden flex items-center space-x-2"> */}
+          {/* <ThemeToggle className="md:hidden" /> */}
+          {/* <button
               onClick={toggleMenu}
               className="text-gray-700 dark:text-dark-secondary hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               {isMenuOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
-            </button>
-          </div>
+            </button> */}
+          {/* </div> */}
         </div>
 
 

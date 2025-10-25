@@ -33,13 +33,13 @@ const Signup = () => {
         <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-dark-primary">
           Create Your Account
         </h1>
-        
+
         <div className="mb-4">
           <label className="block text-gray-700 dark:text-dark-secondary">First Name</label>
           <input
             type="text"
             className={`mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white dark:bg-dark-accent text-gray-900 dark:text-dark-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 ${errors.firstname ? 'border-red-500' : 'border-gray-300 dark:border-dark-primary'}`}
-            {...register('firstname', { 
+            {...register('firstname', {
               required: 'First name is required',
               minLength: { value: 3, message: 'First name must be at least 3 characters' }
             })}
@@ -52,7 +52,7 @@ const Signup = () => {
           <input
             type="text"
             className={`mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white dark:bg-dark-accent text-gray-900 dark:text-dark-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 ${errors.lastname ? 'border-red-500' : 'border-gray-300 dark:border-dark-primary'}`}
-            {...register('lastname', { 
+            {...register('lastname', {
               required: 'Last name is required',
               minLength: { value: 3, message: 'Last name must be at least 3 characters' }
             })}
@@ -75,7 +75,7 @@ const Signup = () => {
           <input
             type="password"
             className={`mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white dark:bg-dark-accent text-gray-900 dark:text-dark-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-dark-primary'}`}
-            {...register('password', { 
+            {...register('password', {
               required: 'Password is required',
               minLength: { value: 6, message: 'Password must be at least 6 characters' }
             })}
@@ -88,7 +88,7 @@ const Signup = () => {
           <input
             type="password"
             className={`mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white dark:bg-dark-accent text-gray-900 dark:text-dark-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-dark-primary'}`}
-            {...register('confirmPassword', { 
+            {...register('confirmPassword', {
               required: 'Please confirm your password',
               validate: (value) => value === password || 'Passwords do not match'
             })}
@@ -103,8 +103,8 @@ const Signup = () => {
             {...register('type', { required: 'Account type is required' })}
           >
             <option value="">Select account type</option>
-            <option value="USER">Job Seeker</option>
-            <option value="ADMIN">Employer</option>
+            <option value="USER">Member</option>
+            <option value="ADMIN">Organisation</option>
           </select>
           {errors.type && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.type.message}</p>}
         </div>

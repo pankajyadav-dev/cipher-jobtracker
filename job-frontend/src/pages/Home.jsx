@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <div className="space-y-16">
-      <section className="text-center py-20">
+      <section className="text-center py-40">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-dark-primary mb-6">
             Find Your <span className="text-blue-600 dark:text-blue-400">Dream Job</span>
@@ -35,37 +35,6 @@ const Home = () => {
         </div>
       </section>
 
-      
-      <section className="bg-blue-600 dark:bg-blue-500 text-white py-16 rounded-lg">
-        <div className="max-w-4xl mx-auto text-center mt-10 pt-10">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Take the Next Step?
-          </h2>
-        
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {!isAuthenticated ? (
-              <>
-                <Link
-                  to="/signup"
-                  className="inline-flex items-center px-8 py-3 bg-white text-blue-600 dark:bg-gray-100 dark:text-blue-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-200 transition-colors font-medium"
-                >
-                  Sign Up Now
-                </Link>
-                <Link
-                  to="/login"
-                  className="inline-flex items-center px-8 py-3 border border-white text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-medium"
-                >
-                  Login
-                </Link>
-              </>
-            ) : (
-              <>
-                
-              </>
-            )}
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
