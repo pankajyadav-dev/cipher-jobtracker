@@ -9,7 +9,7 @@ const dashboardRouter = require('./route/dashboardrouter');
 const profileRouter = require('./route/profilerouter');
 const categoryRouter = require('./route/categoryrouter');
 const searchRouter = require('./route/searchrouter');
-
+console.log("the first  update in the projec");
 app.use(express.json());
 app.use(cors());
 app.use('/api/user', userRouter);
